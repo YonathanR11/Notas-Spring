@@ -14,7 +14,17 @@ app.service('notaService', function ($q, factory) {
         })
     }
 
-
+    SELF.post = (nota) => {
+        return $q((success, error) => {
+            factory.post(PATH, nota).then(
+                (resolve) => {
+                    success(resolve) 
+                },
+                (reject) => {
+                    error(reject)
+                })
+        })
+    }
 
 
 

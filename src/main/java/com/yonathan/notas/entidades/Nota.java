@@ -37,10 +37,8 @@ public class Nota {
 
 	}
 
-	public Nota(String titulo,
-			@NotNull @Size(min = 1, max = 50) String contenido, @NotNull Date fecha) {
+	public Nota(@NotNull @Size(min = 1, max = 50) String titulo, @NotNull @Size(min = 1, max = 50) String contenido, @NotNull Date fecha) {
 		super();
-		this.id = id;
 		this.titulo = titulo;
 		this.contenido = contenido;
 		this.fecha = fecha;

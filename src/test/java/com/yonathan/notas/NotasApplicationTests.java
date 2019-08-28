@@ -28,8 +28,9 @@ public class NotasApplicationTests {
 		for(int i = 0; i < 5; i++) {
 			int numero = (int) (Math.random() * 10000) + 1;
 			int dia = (int) (Math.random() * 30) + 1;
+			int mes = (int) (Math.random() * 9) + 1;
 		try {
-            Nota nota = new Nota("Texto de Contenido en la nota numero: "+numero, "Titulo de la nota numero: "+numero, Date.valueOf("2018-08-"+dia));
+            Nota nota = new Nota("Titulo de la nota numero: "+numero, "Texto de Contenido en la nota numero: "+numero, Date.valueOf("2018-"+mes+"-"+dia));
             if (notaService.agregarNota(nota)) {
             } else {
             	System.out.println("NO SE AGREGO LA NOTA :c");

@@ -1,0 +1,25 @@
+<div class="row d-flex justify-content-end">
+    <a href="#!nueva" class="btn btn-primary mb-3" ng-click="agregarNota()">Agregar nota</a>
+</div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Titulo</th>
+            <th>Contenido</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in notas">
+            <th>{{ x.id }}</th>
+            <td>{{ x.titulo }}</td>
+            <td>{{ x.contenido }}</td>
+            <td>{{ x.fecha | date:'dd/MM/yyyy'}}</td>
+            <td><a class="btn btn-warning btn-sm" ng-click="EditarNota()" href="#!editar" >Editar</a>
+                <button class="btn btn-danger btn-sm" ng-click="EliminarNota()">Eliminar</button></td>
+        </tr>
+    </tbody>
+</table>

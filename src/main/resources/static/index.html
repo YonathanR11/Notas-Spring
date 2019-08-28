@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/libs/sweetalert2.all.min.js"></script>
     <title>Notas</title>
 </head>
 
@@ -18,37 +19,17 @@
     </header>
 
     <div class="container">
-        <div class="row d-flex justify-content-end">
-            <button class="btn btn-primary mb-3" ng-click="agregarNota()">Agregar nota</button>
-        </div>
-        <div class="row">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Titulo</th>
-                        <th>Contenido</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="x in notas">
-                        <th>{{ x.id }}</th>
-                        <td>{{ x.titulo }}</td>
-                        <td>{{ x.contenido }}</td>
-                        <td>{{ x.fecha }}</td>
-                        <td><button class="btn btn-warning btn-sm" ng-click="EditarNota()">Editar</button>
-                            <button class="btn btn-danger btn-sm" ng-click="EliminarNota()">Eliminar</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        
+        <!-- <div class="row"> -->
+                <div ng-view></div>
+        <!-- </div> -->
 
     </div>
 
     <!-- Se importa la libreria AngularJs -->
     <script src="assets/libs/angularjs/angular.min.js"></script>
+    <!-- Libreria Route de AngularJS -->
+    <script src="assets/libs/angularjs/angular-route.min.js"></script>
     <!-- Angular modulos -->
     <script src="app/modules/app.js"></script>
     <!-- angular Factory -->
