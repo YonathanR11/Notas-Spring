@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" data-ng-app="notas">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <title>Notas</title>
+</head>
+
+<body data-ng-controller="NotaControlador">
+
+    <header class="bg-primary text-center py-5 mb-4">
+        <div class="container">
+            <h1 class="font-weight-light text-white">NOTAS</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row d-flex justify-content-end">
+            <button class="btn btn-primary mb-3" ng-click="agregarNota()">Agregar nota</button>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Titulo</th>
+                        <th>Contenido</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in notas">
+                        <th>{{ x.id }}</th>
+                        <td>{{ x.titulo }}</td>
+                        <td>{{ x.contenido }}</td>
+                        <td>{{ x.fecha }}</td>
+                        <td><button class="btn btn-warning btn-sm" ng-click="EditarNota()">Editar</button>
+                            <button class="btn btn-danger btn-sm" ng-click="EliminarNota()">Eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Se importa la libreria AngularJs -->
+    <script src="assets/libs/angularjs/angular.min.js"></script>
+    <!-- Angular modulos -->
+    <script src="app/modules/app.js"></script>
+    <!-- angular Factory -->
+    <script src="app/factories/factory.js"></script>
+    <!-- angular service -->
+    <script src="app/service/notaServicio.js"></script>
+    <!-- Angular controladores -->
+    <script src="app/controllers/notaCtrl.js"></script>
+</body>
+
+</html>
