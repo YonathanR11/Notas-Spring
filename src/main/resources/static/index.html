@@ -10,84 +10,40 @@
     <title>Notas</title>
 </head>
 
-<body data-ng-controller="NotaControlador">
+<body>
 
     <header class="bg-primary text-center py-5 mb-4">
         <div class="container">
             <h1 class="font-weight-light text-white">NOTAS</h1>
         </div>
     </header>
-
-    <div class="container">
-
-        <!-- INICIO -->
-        <div ng-show="!nota">
-            <div class="row d-flex justify-content-end">
-                <a href="#" class="btn btn-primary mb-3" ng-click="btnNuevaNota()">Agregar nota</a>
-            </div>
-
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Titulo</th>
-                        <th>Contenido</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="nota in notas">
-                        <th>{{ nota.id }}</th>
-                        <td>{{ nota.titulo }}</td>
-                        <td>{{ nota.contenido }}</td>
-                        <td>{{ nota.fecha | date:'dd/MM/yyyy'}}</td>
-                        <td><button class="btn btn-warning btn-sm" ng-click="editar(nota)">Editar</button>
-                            <button class="btn btn-danger btn-sm" ng-click="eliminar(nota)">Eliminar</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- INICIO FIN -->
-
-        <!-- NUEVA NOTA -->
-        <div ng-show="nota">
-            <h3 class="mb-3">{{nota.id ? 'Actualizar':'Nueva'}} nota</h3>
-            <form name="formNota" data-ng-submit="submitNota(formNota.$valid)" autocomplete="off" novalidate>
-                <div class="form-group">
-                    <label for="tituloNuevo">Titulo</label>
-                    <input type="text" class="form-control" id="tituloNuevo" ng-model="nota.titulo" placeholder="Titulo"
-                        required>
-                </div>
-                <div class="form-group">
-                        <label for="fechaEdit">Fecha</label>
-                        <input class="form-control" type="date" ng-model="nota.fecha" id="fechaEdit" required>
-                    </div>
-                <div class="form-group">
-                    <label for="notaNueva">Nota</label>
-                    <textarea class="form-control" id="notaNueva" rows="15" ng-model="nota.contenido"
-                        placeholder="Nota..." required></textarea>
-                </div>
-                <div class="row d-flex justify-content-end">
-                    <button class="btn btn-danger mb-3" data-ng-click="cancelar()">Cancelar</button>
-                    <button type="submit" class="btn btn-primary mb-3 ml-3">{{nota.id ? 'Actualizar':'Guardar'}}
-                    </button>
-                </div>
-            </form>
-        </div>
-        <!-- NUEVA NOTA FIN -->
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link bg-success text-white" href="#!usuarios">USUARIOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link bg-danger text-white" href="#!notas">NOTAS</a>
+        </li>
+      </ul>
+    
+    <div class="container" ng-view>
+        
     </div>
 
     <!-- Se importa la libreria AngularJs -->
     <script src="assets/libs/angularjs/angular.min.js"></script>
+    <!-- Route para angularjs -->
+    <script src="assets/libs/angularjs/angular-route.min.js"></script>
     <!-- Angular modulos -->
     <script src="app/modules/app.js"></script>
     <!-- angular Factory -->
     <script src="app/factories/factory.js"></script>
     <!-- angular service -->
     <script src="app/service/notaServicio.js"></script>
+    <script src="app/service/usuarioServicio.js"></script>
     <!-- Angular controladores -->
     <script src="app/controllers/notaCtrl.js"></script>
+    <script src="app/controllers/usuarioCtrl.js"></script>
 </body>
 
 </html>

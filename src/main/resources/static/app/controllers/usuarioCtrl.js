@@ -1,9 +1,9 @@
-app.controller("NotaControlador", function ($scope, notaService) {
+app.controller("usuarioControlador", function ($scope, usuarioService) {
 
-    // Function PARA MOSTRAR LAS NOTAS AL INICIO
-    $scope.obtenerNotas = function () {
-        notaService.get().then((data) => {
-            $scope.notas = data;
+    // Function PARA MOSTRAR LOS USUARIOS AL INICIO
+    $scope.mostrarUsuarios = function () {
+        usuarioService.get().then((data) => {
+            $scope.usuarios = data;
         }, (reject) => {
             Swal.fire({
                 position: 'center',
@@ -17,46 +17,44 @@ app.controller("NotaControlador", function ($scope, notaService) {
     }
 
     // Function PARA MOSTRAR EL DIV NUEVANOTA
-    $scope.btnNuevaNota = function () {
-        $scope.nota = {
-            // status : 1
-            fecha: new Date()
+    $scope.btnNuevoUsuario = function () {
+        $scope.usuario = {
+            estatus : 1
         };
     }
 
-    $scope.editar = function (nota) {
-        $scope.nota = nota;
-        $scope.nota.fecha = new Date(nota.fecha);
+    // Boton de cancelar para agregar o actualizar usuario
+    $scope.cancelarU = function () {
+        $scope.usuario = null;
+        $scope.mostrarUsuarios();
     }
 
-    $scope.cancelar = function () {
-        $scope.nota = null;
-        $scope.obtenerNotas();
-    }
-    $scope.submitNota = function (valid) {
+    // Verifica que el formulario sea valido
+    $scope.submitUsuario = function (valid) {
         if (valid) {
-            if ($scope.nota.id) {
+            if ($scope.usuario.id) {
                 //    actualizar nota
-                $scope.editarNota();
+                $scope.editarUsuario();
             } else {
                 //    guardar nota
-                $scope.guardarNota();
+                $scope.guardarUsuario();
             }
 
         }
     }
-    // Function PARA GUARDAR UNA NOTA NUEVA
-    $scope.guardarNota = function () {
-        notaService.post($scope.nota).then((data) => {
+
+    // Function PARA GUARDAR UN usuario NUEVo
+    $scope.guardarUsuario = function () {
+        usuarioService.post($scope.usuario).then((data) => {
             if (data === true) {
                 Swal.fire({
                     position: 'center',
                     type: 'success',
-                    title: 'Guardada con exito',
+                    title: 'Guardado con exito',
                     showConfirmButton: false,
                     timer: 1500
                 })
-                $scope.obtenerNotas();
+                $scope.mostrarUsuarios();
             } else {
                 Swal.fire({
                     position: 'center',
@@ -67,7 +65,7 @@ app.controller("NotaControlador", function ($scope, notaService) {
                     timer: 3000
                 })
             }
-            $scope.nota = null;
+            $scope.usuario = null;
         }, (reject) => {
             Swal.fire({
                 position: 'center',
@@ -80,18 +78,23 @@ app.controller("NotaControlador", function ($scope, notaService) {
         });
     }
 
+    $scope.editarUser = function (usuario) {
+        $scope.usuario = usuario;
+        $scope.usuario.estatus = 1;
+    }
+
     // Function PARA ACTUALIZAR UNA NOTA ESPECIFICA
-    $scope.editarNota = function () {
-        notaService.put($scope.nota).then((data) => {
+    $scope.editarUsuario = function () {
+        usuarioService.put($scope.usuario).then((data) => {
             if (data === true) {
                 Swal.fire({
                     position: 'center',
                     type: 'success',
-                    title: 'Actualizada con exito',
+                    title: 'Actualizado con exito',
                     showConfirmButton: false,
                     timer: 1500
                 })
-                $scope.obtenerNotas();
+                $scope.mostrarUsuarios();
             } else {
                 Swal.fire({
                     position: 'center',
@@ -102,7 +105,7 @@ app.controller("NotaControlador", function ($scope, notaService) {
                     timer: 3000
                 })
             }
-            $scope.nota = null;
+            $scope.usuario = null;
         }, (reject) => {
             Swal.fire({
                 position: 'center',
@@ -116,8 +119,8 @@ app.controller("NotaControlador", function ($scope, notaService) {
     }
 
     // Function PARA ELIMINAR UNA NOTA ESPECIFICA
-    $scope.eliminar = function (nota) {
-        $scope.notaE = nota;
+    $scope.eliminarUsuario = function (usuario) {
+        $scope.usuarioE = usuario;
         Swal.fire({
             title: '¿Esta seguro?',
             text: "Esta accion no se puede revertir!",
@@ -128,17 +131,17 @@ app.controller("NotaControlador", function ($scope, notaService) {
             confirmButtonText: 'Eliminar'
         }).then((result) => {
             if (result.value) {
-                notaService.delete($scope.notaE).then((data) => {
+                usuarioService.delete($scope.usuarioE).then((data) => {
                     if (data === true) {
                         Swal.fire({
                             position: 'center',
                             type: 'success',
                             title: 'Eliminado',
-                            text: '¡La nota se elimino correctamente!',
+                            text: '¡El usuario se elimino correctamente!',
                             showConfirmButton: false,
                             timer: 1000
                         })
-                        $scope.obtenerNotas();
+                        $scope.mostrarUsuarios();
                     } else {
                         Swal.fire({
                             position: 'center',
@@ -149,7 +152,7 @@ app.controller("NotaControlador", function ($scope, notaService) {
                             timer: 3000
                         })
                     }
-                    $scope.notaE = null;
+                    $scope.usuarioE = null;
                 }, (reject) => {
                     Swal.fire({
                         position: 'center',
@@ -164,11 +167,14 @@ app.controller("NotaControlador", function ($scope, notaService) {
         })
     }
 
-    const INITCONTROLLER = function () {
-        $scope.obtenerNotas()
+
+
+
+    const INITCONTROLLERU = function () {
+        $scope.mostrarUsuarios();
     }
 
     angular.element(document).ready(function () {
-        INITCONTROLLER();
+        INITCONTROLLERU();
     });
 });

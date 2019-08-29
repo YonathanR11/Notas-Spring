@@ -1,0 +1,71 @@
+<!-- INICIO -->
+<div data-ng-controller="usuarioControlador">
+    <div class="mt-4" ng-show="!usuario">
+        <div>
+            <div class="row d-flex justify-content-start">
+                <h3>Usuarios</h3>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <button class="btn btn-primary mb-3" ng-click="btnNuevaNota()">Agregar usuario</button>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <!-- <th>Contraseña</th> -->
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usuario in usuarios">
+                    <th>{{ usuario.id }}</th>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.usuario }}</td>
+                    <td>{{ usuario.correo }}</td>
+                    <!-- <td>{{ usuario.password }}</td> -->
+                    <td><button class="btn btn-warning btn-sm" ng-click="editarUser(usuario)">Editar</button>
+                        <button class="btn btn-danger btn-sm" ng-click="eliminarUsuario(usuario)">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- INICIO FIN -->
+
+    <!-- NUEVA usuario -->
+    <div ng-show="usuario">
+        <h3 class="mb-3">{{usuario.id ? 'Actualizar':'Nuevo'}} usuario</h3>
+        <form name="formUser" data-ng-submit="submitUsuario(formUser.$valid)" autocomplete="off" novalidate>
+            <div class="form-group">
+                <label for="nombreNuevo">Nombre</label>
+                <input type="text" class="form-control" id="nombreNuevo" ng-model="usuario.nombre" placeholder="Nombre"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="usuarioNuevo">Usuario</label>
+                <input type="text" class="form-control" id="usuarioNuevo" ng-model="usuario.usuario"
+                    placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="correoNuevo">Correo</label>
+                <input type="email" class="form-control" id="correoNuevo" ng-model="usuario.correo" placeholder="Correo"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="passNuevo">Contraseña</label>
+                <input type="password" class="form-control" id="passNuevo" ng-model="usuario.password"
+                    placeholder="Contraseña" required>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <button class="btn btn-danger mb-3" data-ng-click="cancelarU()">Cancelar</button>
+                <button type="submit" class="btn btn-primary mb-3 ml-3">{{usuario.id ? 'Actualizar':'Guardar'}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- NUEVA NOTA FIN -->
