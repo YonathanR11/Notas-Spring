@@ -1,4 +1,4 @@
-package com.yonathan.notas.servicio;
+package com.yonathan.notas.servicio.implementacion;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class NotasServicioImpl implements NotasServicio {
 	public NotasRepositorio notasRepositorio;
 
 	@Override
-	public boolean agregarNota(Nota nota) {
+	public boolean agregar(Nota nota) {
 		try {
 			if (nota != null) {
 				notasRepositorio.save(nota);
@@ -28,7 +28,7 @@ public class NotasServicioImpl implements NotasServicio {
 	}
 
 	@Override
-	public boolean actualizarNota(Nota nota) {
+	public boolean actualizar(Nota nota) {
 		try {
 			if (nota != null) {
 				notasRepositorio.save(nota);
@@ -41,7 +41,7 @@ public class NotasServicioImpl implements NotasServicio {
 	}
 
 	@Override
-	public boolean borrarNota(Nota nota) {
+	public boolean borrar(Nota nota) {
 		try {
 			if (nota != null) {
 				notasRepositorio.delete(nota);
@@ -54,7 +54,7 @@ public class NotasServicioImpl implements NotasServicio {
 	}
 
 	@Override
-	public Nota obtenerNota(int notaID) {
+	public Nota obtenerPorId(int notaID) {
 		try {
 			if (notaID > 0) {
 				return notasRepositorio.findById(notaID).get();
@@ -66,7 +66,7 @@ public class NotasServicioImpl implements NotasServicio {
 	}
 
 	@Override
-	public List<Nota> listaNota() {
+	public List<Nota> listar() {
 		try {
 			return (List<Nota>) notasRepositorio.findAll();
 		} catch (Exception ex) {

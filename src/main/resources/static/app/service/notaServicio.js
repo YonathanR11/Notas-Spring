@@ -26,34 +26,27 @@ app.service('notaService', function ($q, factory) {
         })
     }
 
+    SELF.put = (nota) => {
+        return $q((success, error) => {
+            factory.put(PATH, nota).then(
+                (resolve) => {
+                    success(resolve) 
+                },
+                (reject) => {
+                    error(reject)
+                })
+        })
+    }
 
-
-
-    // SELF.post = function (nota) {
-    //     return $q(function (success, error) {
-    //         factory.post(PATH, nota).then((succes) => {
-    //             resolve();
-    //         }, (error) => {
-    //             reject();
-    //         });
-    //     })
-    // }
-    // SELF.put = function (nota) {
-    //     return $q(function (success, error) {
-    //         factory.put(PATH, nota).then((succes) => {
-    //             resolve();
-    //         }, (error) => {
-    //             reject();
-    //         });
-    //     })
-    // }
-    // SELF.delete = function (nota) {
-    //     return $q(function (success, error) {
-    //         factory.delete(PATH, nota).then((succes) => {
-    //             resolve();
-    //         }, (error) => {
-    //             reject();
-    //         });
-    //     })
-    // }
+    SELF.delete = (nota) => {
+        return $q((success, error) => {
+            factory.delete(PATH, nota).then(
+                (resolve) => {
+                    success(resolve) 
+                },
+                (reject) => {
+                    error(reject)
+                })
+        })
+    }
 })

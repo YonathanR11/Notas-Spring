@@ -21,7 +21,7 @@
     <div class="container">
 
         <!-- INICIO -->
-        <div ng-show="verInicio">
+        <div ng-show="!nota">
             <div class="row d-flex justify-content-end">
                 <a href="#" class="btn btn-primary mb-3" ng-click="btnNuevaNota()">Agregar nota</a>
             </div>
@@ -37,13 +37,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in notas">
-                        <th>{{ x.id }}</th>
-                        <td>{{ x.titulo }}</td>
-                        <td>{{ x.contenido }}</td>
-                        <td>{{ x.fecha | date:'dd/MM/yyyy'}}</td>
-                        <td><a class="btn btn-warning btn-sm" ng-click="EditarNota()" href="#!editar">Editar</a>
-                            <button class="btn btn-danger btn-sm" ng-click="EliminarNota()">Eliminar</button></td>
+                    <tr ng-repeat="nota in notas">
+                        <th>{{ nota.id }}</th>
+                        <td>{{ nota.titulo }}</td>
+                        <td>{{ nota.contenido }}</td>
+                        <td>{{ nota.fecha | date:'dd/MM/yyyy'}}</td>
+                        <td><button class="btn btn-warning btn-sm" ng-click="editar(nota)">Editar</button>
+                            <button class="btn btn-danger btn-sm" ng-click="eliminar(nota)">Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -51,49 +51,31 @@
         <!-- INICIO FIN -->
 
         <!-- NUEVA NOTA -->
-        <div ng-show="verNuevaNota">
-            <h3 class="mb-3">Nueva nota</h3>
-            <form>
+        <div ng-show="nota">
+            <h3 class="mb-3">{{nota.id ? 'Actualizar':'Nueva'}} nota</h3>
+            <form name="formNota" data-ng-submit="submitNota(formNota.$valid)" autocomplete="off" novalidate>
                 <div class="form-group">
                     <label for="tituloNuevo">Titulo</label>
-                    <input type="text" class="form-control" id="tituloNuevo" ng-model="tituloN" placeholder="Titulo"
+                    <input type="text" class="form-control" id="tituloNuevo" ng-model="nota.titulo" placeholder="Titulo"
                         required>
                 </div>
                 <div class="form-group">
+                        <label for="fechaEdit">Fecha</label>
+                        <input class="form-control" type="date" ng-model="nota.fecha" id="fechaEdit" required>
+                    </div>
+                <div class="form-group">
                     <label for="notaNueva">Nota</label>
-                    <textarea class="form-control" id="notaNueva" rows="15" ng-model="notaN" placeholder="Nota..."
-                        required></textarea>
+                    <textarea class="form-control" id="notaNueva" rows="15" ng-model="nota.contenido"
+                        placeholder="Nota..." required></textarea>
                 </div>
                 <div class="row d-flex justify-content-end">
-                    <a href="/" class="btn btn-danger mb-3">Cancelar</a>
-                    <a href="#" class="btn btn-primary mb-3 ml-3" ng-click="guardarNota()">Guardar</a>
+                    <button class="btn btn-danger mb-3" data-ng-click="cancelar()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary mb-3 ml-3">{{nota.id ? 'Actualizar':'Guardar'}}
+                    </button>
                 </div>
             </form>
         </div>
         <!-- NUEVA NOTA FIN -->
-
-        <!-- EDITAR NOTA -->
-        <div ng-show="verEditarNota">
-            <h3 class="mb-3">Editar nota</h3>
-            <form>
-                <div class="form-group">
-                    <label for="tituloNuevo">Titulo</label>
-                    <input type="text" class="form-control" id="tituloEditar" ng-model="tituloEditar" placeholder="Titulo"
-                        required>
-                </div>
-                <div class="form-group">
-                    <label for="notaNueva">Nota</label>
-                    <textarea class="form-control" id="notaEditar" rows="15" ng-model="notaEditar" placeholder="Nota..."
-                        required></textarea>
-                </div>
-                <div class="row d-flex justify-content-end">
-                    <a href="/" class="btn btn-danger mb-3">Cancelar</a>
-                    <a href="#" class="btn btn-primary mb-3 ml-3" ng-click="editarNota()">Guardar</a>
-                </div>
-            </form>
-        </div>
-        <!-- EDITAR NOTA FIN -->
-
     </div>
 
     <!-- Se importa la libreria AngularJs -->

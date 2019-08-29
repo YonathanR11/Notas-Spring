@@ -14,7 +14,7 @@ app.factory("factory", function ($http, $q) {
             return $http({
                 url: '/' + $url,
                 method: 'POST',
-                headers: { 'Content-Type': 'aplication/JSON' },
+                headers: { 'Content-Type': 'aplication/json' },
                 data: data
             }).then((succes) => {
                 return succes.data
@@ -26,7 +26,7 @@ app.factory("factory", function ($http, $q) {
             return $http({
                 url: '/' + $url,
                 method: 'PUT',
-                headers: { 'Content-Type': 'aplication/JSON' },
+                headers: { 'Content-Type': 'aplication/json' },
                 data: data
             }).then((succes) => {
                 return succes.data
@@ -38,7 +38,7 @@ app.factory("factory", function ($http, $q) {
             return $http({
                 url: '/' + $url,
                 method: 'DELETE',
-                headers: { 'Content-Type': 'aplication/JSON' },
+                headers: { 'Content-Type': 'aplication/json' },
                 data: data
             }).then((succes) => {
                 return succes.data

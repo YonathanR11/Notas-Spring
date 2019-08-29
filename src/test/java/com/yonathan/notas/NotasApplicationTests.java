@@ -24,14 +24,19 @@ public class NotasApplicationTests {
 	NotasServicio notaService;
 	
 	@Test
+	public void buscarPorId() {
+		
+	}
+	
+	@Test
 	public void AgregarNota() {		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < 10; i++) {
 			int numero = (int) (Math.random() * 10000) + 1;
 			int dia = (int) (Math.random() * 30) + 1;
 			int mes = (int) (Math.random() * 9) + 1;
 		try {
             Nota nota = new Nota("Titulo de la nota numero: "+numero, "Texto de Contenido en la nota numero: "+numero, Date.valueOf("2018-"+mes+"-"+dia));
-            if (notaService.agregarNota(nota)) {
+            if (notaService.agregar(nota)) {
             } else {
             	System.out.println("NO SE AGREGO LA NOTA :c");
             }
@@ -45,8 +50,8 @@ public class NotasApplicationTests {
 	@Test
     public void borrarNota() {
         try {
-        	Nota nota = notaService.obtenerNota(4);
-            if (notaService.borrarNota(nota)) {
+        	Nota nota = notaService.obtenerPorId(4);
+            if (notaService.borrar(nota)) {
             } else {
             	System.out.println("NO SE ELIMINO :c");
             }
@@ -61,8 +66,8 @@ public class NotasApplicationTests {
         try {
         	Nota nota = new Nota(5, "Contenido 006", "Quinta nota", Date.valueOf("2019-08-23"));
 
-            if (notaService.obtenerNota(5) != null) {
-            	notaService.actualizarNota(nota);
+            if (notaService.obtenerPorId(5) != null) {
+            	notaService.actualizar(nota);
             } else {
             	System.out.println("NO SE ACTUALIZO :c");
             }
@@ -76,7 +81,7 @@ public class NotasApplicationTests {
     public void ListarNotas() {
         try {
             List<Nota> notas = new ArrayList<>();
-            notas = notaService.listaNota();
+            notas = notaService.listar();
             System.out.println("\n============ NOTAS ============");
             for (Nota nota : notas) {
             	System.out.println(nota.toString());

@@ -4,13 +4,15 @@ import java.util.List;
 import com.yonathan.notas.entidades.Nota;
 
 public interface NotasServicio {
-	public boolean agregarNota(Nota nota);
 
-	public boolean actualizarNota(Nota nota);
+	public Nota obtenerPorId(int nota);
 
-	public boolean borrarNota(Nota nota);
+	public List<Nota> listar();
 
-	public Nota obtenerNota(int nota);
+	public boolean agregar(Nota nota);
 
-	public List<Nota> listaNota();
+	public boolean actualizar(Nota nota);
+
+	public boolean borrar(Nota nota);
+
 }
