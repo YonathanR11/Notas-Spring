@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.yonathan.notas.entidades.Nota;
 
 @Repository("NotasRepositorio")
-public interface NotasRepositorio extends CrudRepository<Nota, Serializable>{
+public interface NotasRepositorio extends CrudRepository<Nota, Serializable> {
 
 }

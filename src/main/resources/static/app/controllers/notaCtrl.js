@@ -1,5 +1,7 @@
 app.controller("NotaControlador", function ($scope, notaService) {
 
+    $scope.verInicio = true;
+
     $scope.notas = {};
     $scope.notaNueva = {};
 
@@ -18,9 +20,13 @@ app.controller("NotaControlador", function ($scope, notaService) {
         })
     });
 
-});
 
-app.controller('NuevaNotaCtrl', function ($scope, notaService) {
+    // Function PARA MOSTRAR EL DIV NUEVANOTA
+    $scope.btnNuevaNota = function () {
+        $scope.verNuevaNota = true;
+        $scope.verInicio = false;
+    }
+
 
     $scope.guardarNota = function () {
         $scope.notaNueva.titulo = $scope.tituloN;
@@ -67,35 +73,5 @@ app.controller('NuevaNotaCtrl', function ($scope, notaService) {
         });
 
     }
-});
 
-app.controller('EliminarNotaCtrl', function ($scope, notaService) {
-
-    $scope.eliminarNota = function () {
-        notaService.delete($scope.notaNueva).then((data) => {
-
-            $scope.tituloN = "";
-            $scope.notaN = "";
-            Swal.fire({
-                position: 'center',
-                type: 'success',
-                title: 'Guardada con exito',
-                showConfirmButton: false,
-                timer: 1500
-            })
-
-        }, (reject) => {
-
-            Swal.fire({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                text: 'Ocurrio un error al guardar',
-                showConfirmButton: false,
-                timer: 3000
-            })
-
-        });
-
-    }
 });
