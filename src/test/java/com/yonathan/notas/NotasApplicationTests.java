@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +30,8 @@ public class NotasApplicationTests {
 	@Autowired
 	@Qualifier("usuarioServicio")
 	usuarioServicio usuarioService;
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 //	 TESTS DE NOTA =================================================
 	@Test
@@ -94,6 +98,22 @@ public class NotasApplicationTests {
 //	 FIN TESTS DE NOTA =================================================
 
 //	 TESTS DE USUARIO =================================================
+
+	@Test
+	public void login() {
+		try {
+			Usuario usuario = new Usuario("YonathanR","roman");
+			
+			if (usuarioService.login(usuario) != null) {
+				log.info("¡Usuario encontrado!");
+			} else {
+				log.warn("¡Usuario NO encontrado!");
+			}
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+		}
+	}
+
 	@Test
 	public void ListarUsuarios() {
 		try {
@@ -115,7 +135,7 @@ public class NotasApplicationTests {
 			try {
 				Usuario usuario = new Usuario("Nombre " + numero, "correo" + numero + "@mail.com", "user" + numero,
 						"pass" + numero, 1);
-				System.out.println("User: "+usuario);
+				System.out.println("User: " + usuario);
 				if (usuarioService.agregar(usuario)) {
 					System.out.println("SI SE AGREGO EL USUARIO c:");
 				} else {
@@ -130,8 +150,8 @@ public class NotasApplicationTests {
 	@Test
 	public void actualizarUsuario() {
 		try {
-			Usuario usuario = new Usuario(1,"Nombre actualizado", "correoUpdate@mail.com", "UsuarioActualizado",
-					"passActualizado",1);
+			Usuario usuario = new Usuario(1, "Nombre actualizado", "correoUpdate@mail.com", "UsuarioActualizado",
+					"passActualizado", 1);
 
 			if (usuarioService.obtenerPorId(1) != null) {
 				System.out.println("SI SE ACTUALIZO c:");

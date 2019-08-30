@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -32,6 +35,10 @@ public class Nota {
 	@NotNull
 	@Column(nullable = false)
 	private Date fecha;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
 	public Nota() {
 
@@ -53,6 +60,8 @@ public class Nota {
 		this.contenido = contenido;
 		this.fecha = fecha;
 	}
+	
+	
 
 	public int getId() {
 		return id;
@@ -84,6 +93,14 @@ public class Nota {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 app.service('usuarioService', function ($q, factory) {
     const SELF = this;
     const PATH = "usuarios";
+    const PATH2 = "login";
 
     SELF.get = () => {
         return $q((success, error) => {
@@ -9,6 +10,20 @@ app.service('usuarioService', function ($q, factory) {
                     success(resolve) 
                 },
                 (reject) => {
+                    error(reject)
+                })
+        })
+    }
+
+    SELF.postLogin = (login) => {
+        return $q((success, error) => {
+            factory.post(PATH2, login).then(
+                (resolve) => {
+                    console.log("A");
+                    success(resolve)
+                },
+                (reject) => {
+                    console.log("B: ",reject);
                     error(reject)
                 })
         })
