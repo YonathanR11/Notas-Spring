@@ -1,25 +1,30 @@
-app.controller("usuarioControlador", function ($scope, usuarioService) {
+app.controller("usuarioControlador", function ($scope, usuarioService, sessionFactory) {
 
     // Function PARA MOSTRAR LOS USUARIOS AL INICIO
     $scope.mostrarUsuarios = function () {
-        usuarioService.get().then((data) => {
-            $scope.usuarios = data;
-        }, (reject) => {
-            Swal.fire({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                text: 'Ocurrio un error',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        });
+        // $scope.user = sessionFactory.get("usuario");
+        // if ($scope.user) {
+            usuarioService.get().then((data) => {
+                $scope.usuarios = data;
+            }, (reject) => {
+                Swal.fire({
+                    position: 'center',
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Ocurrio un error al ver los usuarios',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            });
+        // } else {
+        //     window.location.href = "#!/";
+        // }
     }
 
     // Function PARA MOSTRAR EL DIV NUEVANOTA
     $scope.btnNuevoUsuario = function () {
         $scope.usuario = {
-            estatus : 1
+            estatus: 1
         };
     }
 

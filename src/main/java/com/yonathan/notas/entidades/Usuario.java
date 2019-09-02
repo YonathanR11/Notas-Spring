@@ -1,14 +1,10 @@
 package com.yonathan.notas.entidades;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -45,9 +41,9 @@ public class Usuario {
 //	@Column(length = 50, nullable = false)
 	private int estatus;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<Nota> notas;
-//	
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//	private List<Nota> notas;
+	
 
 	public int getId() {
 		return id;
@@ -97,13 +93,13 @@ public class Usuario {
 		this.estatus = estatus;
 	}
 
-	public List<Nota> getNotas() {
-		return notas;
-	}
-
-	public void setNotas(List<Nota> notas) {
-		this.notas = notas;
-	}
+//	public List<Nota> getNotas() {
+//		return null;
+//	}
+//
+//	public void setNotas(List<Nota> notas) {
+//		this.notas = new ArrayList<>();
+//	}
 	
 	public Usuario() {
 		
@@ -150,18 +146,18 @@ public class Usuario {
 	
 	
 
-	public Usuario(int id, @NotNull @Size(min = 1, max = 100) String nombre,
-			@NotNull @Size(min = 1, max = 50) String correo, @NotNull @Size(min = 1, max = 25) String usuario,
-			@NotNull @Size(min = 1, max = 25) String password, @NotNull int estatus, List<Nota> notas) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.correo = correo;
-		this.usuario = usuario;
-		this.password = password;
-		this.estatus = estatus;
-		this.notas = notas;
-	}
+//	public Usuario(int id, @NotNull @Size(min = 1, max = 100) String nombre,
+//			@NotNull @Size(min = 1, max = 50) String correo, @NotNull @Size(min = 1, max = 25) String usuario,
+//			@NotNull @Size(min = 1, max = 25) String password, @NotNull int estatus, List<Nota> notas) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.correo = correo;
+//		this.usuario = usuario;
+//		this.password = password;
+//		this.estatus = estatus;
+////		this.notas = notas;
+//	}
 
 	@Override
 	public String toString() {

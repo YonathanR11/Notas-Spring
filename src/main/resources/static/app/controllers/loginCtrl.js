@@ -1,50 +1,60 @@
-app.controller("loginControlador", function ($scope, usuarioService) {
+app.controller("loginControlador", function ($scope, usuarioService, sessionFactory) {
 
-    // $scope.login = {};
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    })
+
+    $scope.verificarSesion = function ($window) {
+        $scope.user = sessionFactory.get("usuario");
+        if (!$scope.user) {
+            window.location.href = "#!/";
+        }else if($scope.user){
+            console.log("nel");
+            // window.location.href = "#!/notas";
+        }
+    }
 
     // Verifica que el formulario de login sea valido
     $scope.submitLogin = function (valid) {
-        console.log("Formulario: ",valid);
         if (valid) {
             $scope.LoginFunction();
         } else {
-            // $(function () {
-            //     $("form[name='formLogin']").validate({
-            //         submitHandler: function (form) {
-            //             form.submit();
-            //         }
-            //     });
-            // });
+            $(function () {
+                $("form[name='formLogin']").validate({
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+            });
         }
     }
 
     // FUNCTION PARA EL LOGIN
-    $scope.LoginFunction = function () {
-        console.log("Login: ",$scope.login);
+    $scope.LoginFunction = function ($window) {
         usuarioService.postLogin($scope.login).then((data) => {
-            console.log("data: ",data);
             if (data) {
-                Swal.fire({
-                    position: 'center',
+                Toast.fire({
                     type: 'success',
-                    title: 'Inicio sesion',
-                    showConfirmButton: false,
-                    timer: 1500
+                    title: 'Bienvenido ' + data.nombre
                 })
-                // $scope.mostrarUsuarios();
+                $scope.login = data;
+                window.location.href = "#!/notas";
+                sessionFactory.put($scope.login);
             } else {
                 Swal.fire({
                     position: 'center',
                     type: 'error',
                     title: 'Error',
-                    text: 'Rellene los campos',
+                    text: 'Contraseña o Usuario incorrectos',
                     showConfirmButton: false,
                     timer: 3000
                 })
             }
-            // $scope.usuario = null;
         }, (reject) => {
-            console.log("reject",reject);
+            console.log("reject", reject);
             Swal.fire({
                 position: 'center',
                 type: 'error',
@@ -54,14 +64,34 @@ app.controller("loginControlador", function ($scope, usuarioService) {
                 timer: 5000
             })
         });
-
-        // Swal.fire({
-        //     position: 'center',
-        //     type: 'success',
-        //     title: 'Guardado con exito',
-        //     showConfirmButton: false,
-        //     timer: 1500
-        // })
     }
 
+    $scope.cerrarSesion = function ($window) {
+        Swal.fire({
+            title: '¿Decea cerrar sesion?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Cerrar'
+        }).then((result) => {
+            if (result.value) {
+                $scope.user = null;
+                sessionFactory.delete("usuario");
+                window.location.href = "#!/";
+                Toast.fire({
+                    type: 'success',
+                    title: 'Sesion cerrada'
+                })
+            }
+        })
+    }
+
+    const INITCONTROLLERS = function () {
+        $scope.verificarSesion();
+    }
+
+    angular.element(document).ready(function () {
+        INITCONTROLLERS();
+    });
 });

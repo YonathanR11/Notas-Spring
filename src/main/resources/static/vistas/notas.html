@@ -1,12 +1,16 @@
 <!-- INICIO -->
 <div data-ng-controller="NotaControlador">
-    <div class="mt-4" ng-show="!nota">
+    <div class="mt-2" ng-show="!nota">
         <div>
             <div class="row d-flex justify-content-start">
-                <h3>Notas</h3>
+                <h3>Notas de {{ user.nombre }}</h3>
             </div>
             <div class="row d-flex justify-content-end">
                 <button class="btn btn-primary mb-3" ng-click="btnNuevaNota()">Agregar nota</button>
+                <div data-ng-controller="loginControlador">
+                    <button class="btn btn-outline-danger mb-3 mr-4 ml-1" ng-click="cerrarSesion()">Cerrar
+                        Sesion</button>
+                </div>
             </div>
         </div>
 
@@ -22,12 +26,15 @@
             </thead>
             <tbody>
                 <tr ng-repeat="nota in notas">
-                    <th>{{ nota.id }}</th>
+                    <th >{{ nota.id }} </th>
                     <td>{{ nota.titulo }}</td>
                     <td>{{ nota.contenido }}</td>
                     <td>{{ nota.fecha | date:'dd/MM/yyyy'}}</td>
-                    <td><button class="btn btn-warning btn-sm" ng-click="editar(nota)">Editar</button>
-                        <button class="btn btn-danger btn-sm" ng-click="eliminar(nota)">Eliminar</button></td>
+                    <td>
+                            <div class="btn-group btn-group" role="group" aria-label="Basic example">
+                        <button class="btn btn-warning btn" ng-click="editar(nota)"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn" ng-click="eliminar(nota)"><i class="fas fa-trash-alt"></i></button></td>
+                    </div>
                 </tr>
             </tbody>
         </table>

@@ -95,6 +95,21 @@ public class NotasApplicationTests {
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 	}
+	
+	@Test
+	public void ListarNotasDeUsuario() {
+		try {
+			int userId = 1;
+			List<Nota> notas = new ArrayList<>();
+			notas = notaService.listarNotasDeUser(userId);
+			System.out.println("\n============ NOTAS DE USUARIO ID:"+userId+" ============");
+			for (Nota nota : notas) {
+				System.out.println(nota.toString());
+			}
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
 //	 FIN TESTS DE NOTA =================================================
 
 //	 TESTS DE USUARIO =================================================

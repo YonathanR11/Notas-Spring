@@ -8,6 +8,8 @@ public interface NotasServicio {
 	public Nota obtenerPorId(int nota);
 
 	public List<Nota> listar();
+	
+	public List<Nota> listarNotasDeUser(int userId);
 
 	public boolean agregar(Nota nota);
 

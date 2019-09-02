@@ -2,6 +2,8 @@ package com.yonathan.notas.servicio.implementacion;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import com.yonathan.notas.servicio.NotasServicio;
 public class NotasServicioImpl implements NotasServicio {
 	@Autowired
 	public NotasRepositorio notasRepositorio;
+	
+	private static final Logger logger = LoggerFactory.getLogger(NotasServicioImpl.class);
 
 	@Override
 	public boolean agregar(Nota nota) {
@@ -23,6 +27,7 @@ public class NotasServicioImpl implements NotasServicio {
 			}
 			return false;
 		} catch (Exception ex) {
+			logger.error("ERROR: "+ex.getMessage());
 			return false;
 		}
 	}
@@ -69,6 +74,15 @@ public class NotasServicioImpl implements NotasServicio {
 	public List<Nota> listar() {
 		try {
 			return (List<Nota>) notasRepositorio.findAll();
+		} catch (Exception ex) {
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Nota> listarNotasDeUser(int userId) {
+		try {
+			return (List<Nota>) notasRepositorio.findByUsuario_Id(userId);
 		} catch (Exception ex) {
 		}
 		return null;

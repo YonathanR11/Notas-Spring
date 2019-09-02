@@ -10,6 +10,17 @@ app.factory("factory", function ($http, $q) {
                 return $q.reject(error);
             })
         },
+        getById: function ($url, data) {
+            return $http({
+                url: '/' + $url,
+                method: 'POST',
+                data: data
+            }).then((succes) => {
+                return succes.data
+            }, (error) => {
+                return $q.reject(error);
+            })
+        },
         post: function ($url, data) {
             return $http({
                 url: '/' + $url,

@@ -2,6 +2,8 @@ package com.yonathan.notas.controladores;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +27,7 @@ public class NotaControlador {
 
 	ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
 	
-//	private static final Logger logger = LoggerFactory.getLogger(NotaControlador.class);
+	private static final Logger logger = LoggerFactory.getLogger(NotaControlador.class);
 	
 	@RequestMapping(path = "notas", method = RequestMethod.GET)
 	public @ResponseBody List<Nota> listaNota() {
@@ -35,18 +37,29 @@ public class NotaControlador {
 			return null;
 		}
 	}
+	
+	@RequestMapping(path = "notasUser", method = RequestMethod.POST)
+	public @ResponseBody List<Nota> listarNotasDeUsuario(@RequestBody int idUser) {
+		try {
+			return notaService.listarNotasDeUser(idUser);
+		} catch (Exception ex) {
+			logger.error("ERROR: "+ex.getMessage());
+			return null;
+		}
+	}
 
 	@RequestMapping(path = "notas", method = RequestMethod.POST)
 	public @ResponseBody boolean registrarNota(@RequestBody String notaJSON) {
 		try {
-			Nota nota = new Nota();
-//
-			nota = mapper.readValue(notaJSON, Nota.class);
+			logger.info("NOTA: "+notaJSON);
+			Nota nota = mapper.readValue(notaJSON, Nota.class);
+			logger.info("NOTA: "+nota);
 			if (notaService.agregar(nota)) {
 				return true;
 			}
 			return false;
 		} catch (Exception ex) {
+			logger.error("NOTA: "+ex.getMessage());
 			return false;
 		}
 	}

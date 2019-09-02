@@ -1,19 +1,24 @@
-app.controller("NotaControlador", function ($scope, notaService) {
+app.controller("NotaControlador", function ($scope, notaService, sessionFactory) {
 
     // Function PARA MOSTRAR LAS NOTAS AL INICIO
-    $scope.obtenerNotas = function () {
-        notaService.get().then((data) => {
-            $scope.notas = data;
-        }, (reject) => {
-            Swal.fire({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                text: 'Ocurrio un error',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        });
+    $scope.obtenerNotas = function ($window) {
+        $scope.user = sessionFactory.get("usuario");
+        if ($scope.user) {
+            notaService.getById($scope.user.id).then((data) => {
+                $scope.notas = data;
+            }, (reject) => {
+                Swal.fire({
+                    position: 'center',
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Ocurrio un error al ver las notas',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            });
+        } else {
+            window.location.href = "#!/";
+        }
     }
 
     // Function PARA MOSTRAR EL DIV NUEVANOTA
@@ -40,6 +45,7 @@ app.controller("NotaControlador", function ($scope, notaService) {
                 $scope.editarNota();
             } else {
                 //    guardar nota
+                $scope.nota.usuario = $scope.user;
                 $scope.guardarNota();
             }
 
@@ -62,7 +68,7 @@ app.controller("NotaControlador", function ($scope, notaService) {
                     position: 'center',
                     type: 'error',
                     title: 'Error',
-                    text: 'Rellene los campos',
+                    text: 'Algo salio mal...',
                     showConfirmButton: false,
                     timer: 3000
                 })

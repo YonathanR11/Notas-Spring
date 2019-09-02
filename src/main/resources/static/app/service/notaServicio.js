@@ -1,10 +1,23 @@
 app.service('notaService', function ($q, factory) {
     const SELF = this;
     const PATH = "notas";
+    const PATH_DOS = "notasUser";
 
     SELF.get = () => {
         return $q((success, error) => {
             factory.get(PATH).then(
+                (resolve) => {
+                    success(resolve) 
+                },
+                (reject) => {
+                    error(reject)
+                })
+        })
+    }
+
+    SELF.getById = (idUser) => {
+        return $q((success, error) => {
+            factory.getById(PATH_DOS, idUser).then(
                 (resolve) => {
                     success(resolve) 
                 },

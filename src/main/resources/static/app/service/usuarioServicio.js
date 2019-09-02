@@ -19,11 +19,9 @@ app.service('usuarioService', function ($q, factory) {
         return $q((success, error) => {
             factory.post(PATH2, login).then(
                 (resolve) => {
-                    console.log("A");
                     success(resolve)
                 },
                 (reject) => {
-                    console.log("B: ",reject);
                     error(reject)
                 })
         })

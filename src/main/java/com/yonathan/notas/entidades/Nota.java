@@ -28,23 +28,24 @@ public class Nota {
 	private String titulo;
 
 	@NotNull
-	@Size(min = 1, max = 50)
-	@Column(length = 50, nullable = false)
+	@Column(columnDefinition = "TEXT")
 	private String contenido;
 
 	@NotNull
 	@Column(nullable = false)
 	private Date fecha;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne()
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	public Nota() {
 
 	}
+	
+	
 
-	public Nota(@NotNull @Size(min = 1, max = 50) String titulo, @NotNull @Size(min = 1, max = 50) String contenido,
+	public Nota(@NotNull @Size(min = 1, max = 50) String titulo, @NotNull String contenido,
 			@NotNull Date fecha) {
 		super();
 		this.titulo = titulo;
@@ -53,15 +54,23 @@ public class Nota {
 	}
 
 	public Nota(int id, @NotNull @Size(min = 1, max = 50) String titulo,
-			@NotNull @Size(min = 1, max = 50) String contenido, @NotNull Date fecha) {
+			@NotNull String contenido, @NotNull Date fecha) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.contenido = contenido;
 		this.fecha = fecha;
 	}
-	
-	
+
+	public Nota(int id, @NotNull @Size(min = 1, max = 50) String titulo, @NotNull String contenido, @NotNull Date fecha,
+			Usuario usuario) {
+		super();
+		this.id = id;
+		this.titulo = titulo;
+		this.contenido = contenido;
+		this.fecha = fecha;
+		this.usuario = usuario;
+	}
 
 	public int getId() {
 		return id;
@@ -94,7 +103,7 @@ public class Nota {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
