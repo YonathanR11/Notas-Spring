@@ -11,9 +11,9 @@ app.controller("loginControlador", function ($scope, usuarioService, sessionFact
         $scope.user = sessionFactory.get("usuario");
         if (!$scope.user) {
             window.location.href = "#!/";
-        }else if($scope.user){
-            console.log("nel");
-            // window.location.href = "#!/notas";
+        }else if(window.location.pathname === "/"){
+            window.location.href = "#!/notas";
+            // console.log(window.location)
         }
     }
 
