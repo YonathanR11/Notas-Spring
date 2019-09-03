@@ -2,10 +2,10 @@ const app = angular.module("notas", ["ngRoute"]);
 
 app.config(function($routeProvider) {
     $routeProvider
-    // .when("/", {
-    //   templateUrl : "vistas/inicio.html"
-    // })
-    .when("/", {
+    .when("/inicio", {
+      templateUrl : "vistas/inicio.html"
+    })
+    .when("/login", {
       templateUrl : "vistas/login.html"
     })
     .when("/notas", {
@@ -13,6 +13,9 @@ app.config(function($routeProvider) {
     })
     .when("/usuarios", {
       templateUrl : "vistas/usuarios.html"
+    })
+    .when("/chat", {
+      templateUrl : "vistas/chat.html"
     }).otherwise({
       templateUrl: "vistas/404.html"
   });

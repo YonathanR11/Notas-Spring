@@ -8,28 +8,76 @@
     <!-- Bootstrap v4.3.1 -->
     <link rel="stylesheet" href="assets/libs/Bootstrap-v4.3.1/css/bootstrap.min.css">
     <!-- Sweetalert2 -->
-    <script src="assets/libs/sweetalert2.all.min.js"></script>
+    <script src="assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
     <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/estiloLogin.css">
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="assets/libs/fontawesome-free-5.10.2-web/css/all.min.css">
+    <!-- Custom styles for this template -->
+    <link href="assets/css/dashboard.css" rel="stylesheet">
+    <!-- Estilos del chat -->
+    <link rel="stylesheet" href="assets/css/estilosDeChat.css">
     <title>Notas</title>
 </head>
 
 <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#!/inicio">NOTAS</a>
+        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <div data-ng-controller="loginControlador">
+                    <button class="btn btn-outline-danger" ng-click="cerrarSesion()">Cerrar Sesion</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
-    <header class="bg-primary text-center py-3">
-        <div class="container">
-            <h1 class="font-weight-light text-white">NOTAS</h1>
-          </div>
-    </header>
-    
-    <div class="container" ng-view>
-        
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky" id="OpcionesMenu">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!/inicio">
+                                <i class="far fa-list-alt fa-lg"></i>
+                                Dashboard
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!/notas">
+                                <i class="far fa-sticky-note fa-lg"></i>
+                                Notas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!/usuarios">
+                                <i class="far fa-user fa-lg"></i>
+                                Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!/chat">
+                                <i class="far fa-comments fa-lg"></i>
+                                Chat
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- <div ng-if="user"> -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" ng-view>
+                <!-- Aqui va el contenido chido -->
+            </main>
+            <!-- </div> -->
+        </div>
     </div>
 
     <!-- JQuery -->
     <script src="assets/libs/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.6.8-fix/jquery.nicescroll.min.js"></script>
     <!-- Validate de JQuery -->
     <script src="assets/libs/jQuery/jquery.validate.min.js"></script>
     <script src="assets/libs/jQuery/localization/messages_es.js"></script>
@@ -49,10 +97,21 @@
     <script src="app/controllers/notaCtrl.js"></script>
     <script src="app/controllers/usuarioCtrl.js"></script>
     <script src="app/controllers/loginCtrl.js"></script>
+    <!-- Bootstrap v4.3.1 -->
+    <script src="assets/libs/Bootstrap-v4.3.1/js/bootstrap.min.js"></script>
+    <script src="assets/libs/Bootstrap-v4.3.1/js/bootstrap.bundle.min.js"></script>
     <!-- Fontawesome JS -->
-    <script src="/assets/libs/fontawesome-free-5.10.2-web/js/all.min.js"></script>
+    <script src="assets/libs/fontawesome-free-5.10.2-web/js/all.min.js"></script>
+    <!-- JS de Dashboard -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- sockjs-client -->
+    <script src="assets/libs/sockjs-client/sockjs.min.js"></script>
+    <!-- stomp-websocket -->
+    <script src="assets/libs/stomp-websocket/stomp.min.js"></script>
+    <!-- Chat -->
+    <script src="assets/js/chat.js"></script>
 
-    
+
 </body>
 
 </html>

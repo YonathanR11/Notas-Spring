@@ -1,18 +1,13 @@
 <!-- INICIO -->
 <div data-ng-controller="NotaControlador">
-    <div class="mt-2" ng-show="!nota">
-        <div>
-            <div class="row d-flex justify-content-start">
-                <h3><i class="fas fa-sticky-note fa-2x" style="color: #845ef7;"></i> Notas de {{ user.nombre }}</h3>
+    <div ng-show="!nota">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Notas de {{ user.nombre }}</h1>
             </div>
             <div class="row d-flex justify-content-end">
                 <button class="btn btn-primary mb-3" ng-click="btnNuevaNota()">Agregar nota</button>
-                <div data-ng-controller="loginControlador">
-                    <button class="btn btn-outline-danger mb-3 mr-4 ml-1" ng-click="cerrarSesion()">Cerrar
-                        Sesion</button>
-                </div>
             </div>
-        </div>
 
         <table class="table">
             <thead class="thead-dark">
@@ -26,15 +21,19 @@
             </thead>
             <tbody>
                 <tr ng-repeat="nota in notas">
-                    <th >{{ nota.id }} </th>
+                    <th>{{ nota.id }} </th>
                     <td>{{ nota.titulo }}</td>
                     <td>{{ nota.contenido }}</td>
                     <td>{{ nota.fecha | date:'dd/MM/yyyy'}}</td>
                     <td>
-                            <div class="btn-group btn-group" role="group" aria-label="Basic example">
-                        <button class="btn btn-warning btn" ng-click="editar(nota)"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn" ng-click="eliminar(nota)"><i class="fas fa-trash-alt"></i></button></td>
-                    </div>
+                        <div class="btn-group btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-warning btn" ng-click="editar(nota)"><i
+                                    class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn" ng-click="eliminar(nota)"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+
                 </tr>
             </tbody>
         </table>

@@ -9,12 +9,16 @@ app.controller("loginControlador", function ($scope, usuarioService, sessionFact
 
     $scope.verificarSesion = function ($window) {
         $scope.user = sessionFactory.get("usuario");
+        // console.log("USER: ", $scope.user);
         if (!$scope.user) {
-            window.location.href = "#!/";
-        }else if(window.location.pathname === "/"){
-            window.location.href = "#!/notas";
-            // console.log(window.location)
+            window.location.href = "#!/login";
         }
+        // TODO Necesito ver que se va a realizar cuando el usuario ponga solo de url la "/"
+        // else if(window.location.pathname === "#!/"){
+        //     console.log("paso")
+        //     window.location.href = "#!/notas";
+        //     // console.log(window.location)
+        // }
     }
 
     // Verifica que el formulario de login sea valido
@@ -78,7 +82,7 @@ app.controller("loginControlador", function ($scope, usuarioService, sessionFact
             if (result.value) {
                 $scope.user = null;
                 sessionFactory.delete("usuario");
-                window.location.href = "#!/";
+                window.location.href = "#!/login";
                 Toast.fire({
                     type: 'success',
                     title: 'Sesion cerrada'

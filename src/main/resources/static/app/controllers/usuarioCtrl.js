@@ -2,8 +2,8 @@ app.controller("usuarioControlador", function ($scope, usuarioService, sessionFa
 
     // Function PARA MOSTRAR LOS USUARIOS AL INICIO
     $scope.mostrarUsuarios = function () {
-        // $scope.user = sessionFactory.get("usuario");
-        // if ($scope.user) {
+        $scope.user = sessionFactory.get("usuario");
+        if ($scope.user) {
             usuarioService.get().then((data) => {
                 $scope.usuarios = data;
             }, (reject) => {
@@ -16,9 +16,9 @@ app.controller("usuarioControlador", function ($scope, usuarioService, sessionFa
                     timer: 1500
                 })
             });
-        // } else {
-        //     window.location.href = "#!/";
-        // }
+        } else {
+            window.location.href = "#!/login";
+        }
     }
 
     // Function PARA MOSTRAR EL DIV NUEVANOTA

@@ -17,7 +17,7 @@ app.controller("NotaControlador", function ($scope, notaService, sessionFactory)
                 })
             });
         } else {
-            window.location.href = "#!/";
+            window.location.href = "#!/login";
         }
     }
 

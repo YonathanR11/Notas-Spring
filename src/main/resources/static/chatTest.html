@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello WebSocket</title>
+  <link href="assets/libs/Bootstrap-v4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/appChat.css" rel="stylesheet">
+  <script src="assets/libs/jQuery/jquery-3.4.1.min.js"></script>
+  <script src="assets/libs/sockjs-client/sockjs.min.js"></script>
+  <script src="assets/libs/stomp-websocket/stomp.min.js"></script>
+  <script src="assets/js/appChat.js"></script>
+</head>
+
+<body>
+  <noscript>
+    <h2 style="color: #ff0000">Parece que su navegador no es compatible con Javascript! Websocket confía en que
+      Javascript esté habilitado. ¡Habilite Javascript y vuelva a cargar esta página!</h2>
+  </noscript>
+  <div id="main-content" class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="connect">Conexión WebSocket:</label>
+            <button id="connect" class="btn btn-success ml-1" type="submit">Conectar</button>
+            <button id="disconnect" class="btn btn-danger ml-1" type="submit" disabled="disabled">Desconectar
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <form class="form-inline" autocomplete="off">
+          <div class="form-group mb-3">
+            <label for="name">Cual es tu nombre? </label>
+            <input type="text" id="name" class="form-control ml-1" placeholder="Nombre...">
+            <button id="send" class="btn btn-info ml-1" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table id="conversation" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Saludos</th>
+            </tr>
+          </thead>
+          <tbody id="greetings">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
