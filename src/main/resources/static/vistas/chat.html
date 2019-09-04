@@ -1,39 +1,61 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Chat</h1>
-</div>
-<div data-ng-controller="loginControlador" >
-<!-- <div class="col chat_window"> -->
-        <!-- <div class="top_menu">
-            <div class="buttons">
-                <div class="button close"></div>
-                <div class="button minimize"></div>
-                <div class="button maximize"></div>
+<div data-ng-controller="ChatControlador">
+    <div class="messaging mt-1" ng-show="verChat">
+        <div class="inbox_msg">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-danger btn-sm m-1" ng-click="desconectarChat()">Desconectar</button>
             </div>
-            <div class="title">Chat</div>
-        </div> -->
-        <div class="row">
-        <ul class="col-12 messages ">
-            
-        </ul>
-    </div>
-    <div class="row">
-        <div class="col-12 bottom_wrapper">
-            <div class="message_input_wrapper"><input value="{{5+5}}" class="message_input" placeholder="Type your message here..." /></div>
-            <div class="send_message">
-                <div class="icon"></div>
-                <div class="text">Enviar</div>
+            <div class="mesgs">
+                <div class="msg_history" id="historialMensajes" ng-repeat="x in mensajes" >
+                    <!-- <p ng-bind-html="{{x}}"></p>  -->
+                    <p >{{x}}</p>
+                    <!-- <div class="bg-primary">{{x}}</div> -->
+
+                    <!-- MENSAJE RECIBIDO -->
+                    <!-- <div class="incoming_msg">
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>Test which is a new approach to have all
+                                    solutions</p>
+                                <span class="time_date"> 11:01 AM | June 9</span>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- MENSAJE ENVIADO -->
+                    <!-- <div class="outgoing_msg">
+                        <div class="sent_msg">{{ userChat.nombre }}
+                            <p>Test which is a new approach to have all
+                                solutions</p>
+                            <span class="time_date"> 11:01 AM | June 9</span>
+                        </div>
+                    </div> -->
+
+                </div>
+                <div class="type_msg">
+                    <form name="formChat" data-ng-submit="submitChat(formChat.$valid)" autocomplete="off" novalidate>
+                    <div class="input_msg_write">
+                        <input type="text" ng-model="userChat.mensaje" class="write_msg p-2" placeholder="Mensaje..." />
+                        <button class="msg_send_btn" type="submit"><i
+                                class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- </div> -->
-    <!-- <div class="w-100 p-4"></div> -->
-    <div class="message_template">
-        <li class="message">
-            <div class="avatar"></div>
-            <div class="text_wrapper">
-            
-                <div class="text"></div>
+    <!-- data-ng-controller="ChatControlador" -->
+    <div class="d-flex justify-content-center mt-5" ng-show="!verChat">
+        <div class="col-md-4">
+
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text text-center">{{ userChat.nombre }}, ¿decea iniciar el chat?</p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-block" ng-click="iniciarChat()">Iniciar Chat</button>
+                </div>
             </div>
-        </li>
+        </div>
     </div>
-    </div>
+</div>

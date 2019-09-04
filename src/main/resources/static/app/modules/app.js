@@ -1,4 +1,4 @@
-const app = angular.module("notas", ["ngRoute"]);
+const app = angular.module("notas", ["ngRoute","ngSanitize"]);
 
 app.config(function($routeProvider) {
     $routeProvider

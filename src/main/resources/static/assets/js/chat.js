@@ -1,95 +1,94 @@
-(function () {
-    var Message;
-    Message = function (arg) {
-        this.text = arg.text, this.message_side = arg.message_side;
-        this.draw = function (_this) {
-            return function () {
-                var $message;
-                $message = $($('.message_template').clone().html());
-                $message.addClass(_this.message_side).find('.text').html(_this.text);
-                $('.messages').append($message);
-                return setTimeout(function () {
-                    return $message.addClass('appeared');
-                }, 0);
-            };
-        }(this);
-        return this;
-    };
-    $(function () {
-        var getMessageText, message_side, sendMessage;
-        message_side = 'right';
-        getMessageText = function () {
-            var $message_input;
-            $message_input = $('.message_input');
-            return $message_input.val();
-        };
-        sendMessage = function (text) {
-            var $messages, message;
-            if (text.trim() === '') {
-                return;
-            }
-            $('.message_input').val('');
-            $messages = $('.messages');
-            message_side = message_side === 'left' ? 'right' : 'left';
-            message = new Message({
-                text: text,
-                message_side: message_side
-            });
-            message.draw();
-            return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
-        };
-        $('.send_message').click(function (e) {
-            return sendMessage(getMessageText());
-        });
-        $('.message_input').keyup(function (e) {
-            if (e.which === 13) {
-                return sendMessage(getMessageText());
-            }
-        });
-        setTimeout(function () {
-            return sendMessage('Mensaje #1');
-        }, 100);
-        setTimeout(function () {
-            return sendMessage('Mensaje #2');
-        }, 200);
-        setTimeout(function () {
-            return sendMessage('Mensaje #3');
-        }, 300);
-        setTimeout(function () {
-            return sendMessage('Mensaje #4');
-        }, 400);
-        setTimeout(function () {
-            return sendMessage('Mensaje #5');
-        }, 500);
-        setTimeout(function () {
-            return sendMessage('Mensaje #6');
-        }, 600);
-        setTimeout(function () {
-            return sendMessage('Mensaje #7');
-        }, 700);
-        setTimeout(function () {
-            return sendMessage('Mensaje #8');
-        }, 800);
-        setTimeout(function () {
-            return sendMessage('Mensaje #9');
-        }, 900);
-        setTimeout(function () {
-            return sendMessage('Mensaje #10');
-        }, 1000);
-        setTimeout(function () {
-            return sendMessage('Mensaje #11');
-        }, 1100);
-        setTimeout(function () {
-            return sendMessage('Mensaje #12');
-        }, 1200);
-        setTimeout(function () {
-            return sendMessage('M\ne\nn\ns\na\nj\ne\n\n #\n1\n3');
-        }, 1300);
-    setTimeout(function () {
-            return sendMessage('Mensaje #14 \nLorem ipsum dolor sit amet consectetur, adipisicing elit. \nMolestias ullam facilis at esse veniam ex vero delectus minima dicta asperiores, porro quo! \nCommodi porro culpa earum saepe impedit consequuntur incidunt!');
-        }, 1400);
+app.controller("ChatControlador", function ($scope, sessionFactory) {
+    $scope.userChat = sessionFactory.get("usuario");
+    $scope.verChat = sessionFactory.get("chat");
+    $scope.mensajes = {};
+    const mensajesUser = [];
+    let stompClient = null;
 
-        // sendMessage('Hola Philip! :)');
-        // sendMessage('Hello Philip! :)');
-    });
-}.call(this));
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    })
+
+    $scope.iniciarChat = function () {
+        sessionFactory.put("chat", $scope.userChat);
+        if (!$scope.verChat) {
+            $scope.verChat = sessionFactory.get("chat");
+
+            let socket = new SockJS('/websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.debug = null;
+
+            stompClient.connect({}, function (frame) {
+                // setConnected(true);
+                // console.log('CONECTADO: ' + frame);
+                console.log('CONECTADO: ');
+                stompClient.subscribe('/tema/saludos', function (mensajes) {
+                    if ($scope.miMensaje) {
+                        $scope.miMensaje = false;
+                    } else {
+                        $scope.VerMensajeRecibido(JSON.parse(mensajes.body).contenido);
+                    }
+                });
+            });
+        }
+    }
+
+    $scope.submitChat = function (valid) {
+        if (valid) {
+            $scope.enviarMensaje();
+        } else {
+            $(function () {
+                $("form[name='formLogin']").validate({
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+            });
+        }
+    }
+
+    $scope.VerMensajeRecibido = function (message) {
+        // mensajeNew =+ mensajeNew.append('<div class="incoming_msg"> <div class="received_msg">Servidor<div class="received_withd_msg"> <p>' + message + '</p> <!-- <span class="time_date"> 11:01 AM | June 9</span> --> </div> </div> </div>');
+        // console.log("mensajeNew: ",mensajeNew)
+        mensajesUser.push('{ mensaje : <div class="incoming_msg"> <div class="received_msg">Servidor<div class="received_withd_msg"> <p>' + message + '</p></div> </div> </div>}');
+        // $scope.mensajes = JSON.stringify(mensajesUser);
+        $scope.mensajes = mensajesUser;
+        console.log("RECIBIDO: ",$scope.mensajes )
+    }
+
+    $scope.VerMensajeEnviado = function (message) {
+        $scope.miMensaje = true;
+        let nombreUsuario = $scope.userChat.nombre;
+        // $("#historialMensajes").append('<div class="outgoing_msg"> <div class="sent_msg">' + nombreUsuario + '<p>' + message + '</p> <!-- <span class="time_date"> 11:01 AM | June 9</span> --> </div> </div>');
+        mensajesUser.push('{ mensaje : <div class="outgoing_msg"><div class="sent_msg">' + nombreUsuario + '<p>' + message + '</p></div></div> }');
+        // $scope.mensajes= JSON.stringify(mensajesUser);
+        $scope.mensajes= mensajesUser;
+        console.log("ENVIADO: ",$scope.mensajes )
+    }
+
+    $scope.enviarMensaje = function () {
+        // console.log("input: ", $scope.userChat.mensaje);
+        stompClient.send("/app/hola", {}, JSON.stringify({
+            'mensaje': $scope.userChat.mensaje
+        }));
+        $scope.VerMensajeEnviado($scope.userChat.mensaje);
+        $scope.userChat.mensaje = null;
+        // console.log("$scope.userChat: ", $scope.userChat);
+    }
+
+    $scope.desconectarChat = function () {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("=== DESCONECTADO ===");
+        $scope.verChat = null;
+        sessionFactory.delete("chat");
+        Toast.fire({
+            type: 'success',
+            title: '¡Se desconecto correctamente!'
+        })
+    }
+});

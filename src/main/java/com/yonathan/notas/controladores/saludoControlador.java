@@ -15,6 +15,6 @@ public class saludoControlador {
     @SendTo("/tema/saludos")
     public Saludo saludo(Mensaje mensaje) throws Exception {
         Thread.sleep(1000); // simulated delay
-        return new Saludo("Hola, " + HtmlUtils.htmlEscape(mensaje.getNombre()) + "!");
+        return new Saludo(HtmlUtils.htmlEscape(mensaje.getMensaje()));
     }
 }

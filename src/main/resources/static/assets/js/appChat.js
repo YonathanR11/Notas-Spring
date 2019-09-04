@@ -33,7 +33,9 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/hola", {}, JSON.stringify({ 'nombre': $("#name").val() }));
+    stompClient.send("/app/hola", {}, JSON.stringify({
+        'nombre': $("#name").val()
+    }));
 }
 
 function showGreeting(message) {
@@ -44,7 +46,13 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $("#connect").click(function () { connect(); });
-    $("#disconnect").click(function () { disconnect(); });
-    $("#send").click(function () { sendName(); });
+    $("#connect").click(function () {
+        connect();
+    });
+    $("#disconnect").click(function () {
+        disconnect();
+    });
+    $("#send").click(function () {
+        sendName();
+    });
 });

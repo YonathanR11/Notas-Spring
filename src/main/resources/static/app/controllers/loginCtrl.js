@@ -46,7 +46,7 @@ app.controller("loginControlador", function ($scope, usuarioService, sessionFact
                 })
                 $scope.login = data;
                 window.location.href = "#!/notas";
-                sessionFactory.put($scope.login);
+                sessionFactory.put("usuario",$scope.login);
             } else {
                 Swal.fire({
                     position: 'center',
@@ -81,7 +81,7 @@ app.controller("loginControlador", function ($scope, usuarioService, sessionFact
         }).then((result) => {
             if (result.value) {
                 $scope.user = null;
-                sessionFactory.delete("usuario");
+                sessionFactory.deleteAll();
                 window.location.href = "#!/login";
                 Toast.fire({
                     type: 'success',

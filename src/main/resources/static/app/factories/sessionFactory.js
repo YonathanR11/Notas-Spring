@@ -4,9 +4,9 @@ app.factory("sessionFactory", function () {
         get: function ($keyId) {
             return JSON.parse(sessionStorage.getItem($keyId));
         },
-        put: function ($objUser) {
+        put: function ($nombre, $objUser) {
             let user = JSON.stringify($objUser);
-            sessionStorage.setItem('usuario', user)
+            sessionStorage.setItem($nombre, user)
         },
         delete: function ($keyId) {
             return sessionStorage.removeItem($keyId);
