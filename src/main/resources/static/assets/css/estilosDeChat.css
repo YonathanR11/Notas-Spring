@@ -57,9 +57,12 @@ body {
 
 .messages {
   /* margin: 0; */
-  position: relative;
+/*   position: relative; */
   height: calc(100vh - 245px);
+  
+/*   overflow: scroll; */
   overflow: scroll;
+  overflow-x:hidden;
 }
 .messages .message {
   clear: both;

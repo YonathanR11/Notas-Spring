@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Chat</h1>
 </div>
-
+<div data-ng-controller="loginControlador" >
 <!-- <div class="col chat_window"> -->
         <!-- <div class="top_menu">
             <div class="buttons">
@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-12 bottom_wrapper">
-            <div class="message_input_wrapper"><input class="message_input" placeholder="Type your message here..." /></div>
+            <div class="message_input_wrapper"><input value="{{5+5}}" class="message_input" placeholder="Type your message here..." /></div>
             <div class="send_message">
                 <div class="icon"></div>
                 <div class="text">Enviar</div>
@@ -31,7 +31,9 @@
         <li class="message">
             <div class="avatar"></div>
             <div class="text_wrapper">
+            
                 <div class="text"></div>
             </div>
         </li>
+    </div>
     </div>
