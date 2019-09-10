@@ -16,7 +16,11 @@ app.config(function($routeProvider) {
     })
     .when("/chat", {
       templateUrl : "vistas/chat.html"
-    }).otherwise({
+    })
+    .when("/archivos", {
+      templateUrl : "vistas/archivos.html"
+    })
+    .otherwise({
       templateUrl: "vistas/404.html"
   });
   });

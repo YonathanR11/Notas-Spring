@@ -1,0 +1,68 @@
+<!-- INICIO -->
+<div data-ng-controller="ArchivoControlador">
+    <div ng-show="!archivo">
+            <div data-ng-controller="NotaControlador"
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Archivos de {{ user.nombre }}</h1>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <button class="btn btn-primary mb-3" ng-click="btnSubirArchivo()">Subir archivo</button>
+            </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Contenido</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="nota in notas">
+                    <th>{{ nota.id }} </th>
+                    <td>{{ nota.titulo }}</td>
+                    <td>{{ nota.contenido }}</td>
+                    <td>{{ nota.fecha | date:'dd/MM/yyyy'}}</td>
+                    <td>
+                        <div class="btn-group btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-warning btn" ng-click="editar(nota)"><i
+                                    class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn" ng-click="eliminar(nota)"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- INICIO FIN -->
+
+    <!-- NUEVA NOTA -->
+    <div ng-show="!archivo">
+        <h3 class="mb-3">{{nota.id ? 'Actualizar':'Nuevo'}} archivo</h3>
+        <form name="formArchivo" data-ng-submit="submitArchivo(formArchivo.$valid)" autocomplete="off" novalidate>
+            <div class="form-group">
+                <label for="tituloNuevo">Nombre</label>
+                <input type="text" class="form-control" id="tituloNuevo" ng-model="nota.titulo" placeholder="Titulo"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="archivoId">Archivo</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="archivoId" lang="es">
+                    <label class="custom-file-label" for="customFile">Elige un archivo...</label>
+                  </div>
+                  
+            </div>
+            <div class="row d-flex justify-content-end">
+                <button class="btn btn-danger mb-3" data-ng-click="cancelar()">Cancelar</button>
+                <button type="submit" class="btn btn-primary mb-3 ml-3">{{nota.id ? 'Actualizar':'Guardar'}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- NUEVA NOTA FIN -->
